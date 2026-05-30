@@ -220,9 +220,9 @@ export default function SubmitClaim() {
 
       {error && <div className="alert alert-error" style={{ maxWidth: '800px', margin: '0 auto 1.5rem' }}>⚠ {error}</div>}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '2rem', alignItems: 'start', maxWidth: '1100px', margin: '0 auto' }}>
+      <div className="submit-page-layout">
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="submit-form-area">
           {/* Section: Basic Info */}
           <div className="glass-card" style={{ padding: '2rem', marginBottom: '1.5rem' }}>
             <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--primary-light)' }}>
@@ -335,7 +335,9 @@ export default function SubmitClaim() {
         </form>
 
         {/* Preview */}
-        <ScorePreview score={score} flags={flags} />
+        <div className="submit-preview-area">
+          <ScorePreview score={score} flags={flags} />
+        </div>
       </div>
     </div>
   );

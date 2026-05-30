@@ -220,22 +220,8 @@ export default function ReviewerDashboard() {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {filtered.map(claim => (
-            <div key={claim._id} style={{
-              background: 'var(--bg-card)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--radius-xl)',
-              padding: '1.25rem 1.5rem',
-              display: 'grid',
-              gridTemplateColumns: '1fr auto',
-              gap: '1rem',
-              alignItems: 'center',
-              transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; e.currentTarget.style.transform = 'translateX(4px)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'none'; }}
-            >
-              <div>
+            <div key={claim._id} className="reviewer-claim-row">
+              <div className="reviewer-claim-info">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
                   <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>{claim.title}</span>
                   <StatusBadge status={claim.status} />
@@ -255,7 +241,7 @@ export default function ReviewerDashboard() {
                 )}
               </div>
 
-              <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+              <div className="reviewer-claim-actions">
                 <button className="btn btn-secondary btn-sm" onClick={() => navigate(`/claim/${claim._id}`)}>
                   👁 View
                 </button>

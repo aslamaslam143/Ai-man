@@ -110,12 +110,19 @@ h1, h2, h3, h4, h5 {
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
+@media (max-width: 640px) {
+  .container { padding: 0 1.25rem; }
+}
+
 .section { padding: 5rem 0; }
+@media (max-width: 768px) {
+  .section { padding: 3.5rem 0; }
+}
 
 /* ================================
    ANIMATIONS
@@ -377,38 +384,97 @@ h1, h2, h3, h4, h5 {
   font-size: 1.1rem;
   box-shadow: var(--shadow-glow);
 }
-.navbar-logo-text {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.1rem;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.navbar-links {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  list-style: none;
-}
-
-.navbar-link {
-  padding: 0.45rem 0.9rem;
-  border-radius: var(--radius-full);
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
-}
-.navbar-link:hover { color: var(--text-primary); background: rgba(99,102,241,0.1); }
-.navbar-link.active { color: var(--primary-light); background: rgba(99,102,241,0.15); }
-
 .navbar-cta { margin-left: 0.5rem; }
+
+.desktop-only { display: flex !important; }
+.mobile-only { display: none !important; }
+
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+}
+
+/* Navbar Toggle (Hamburger) */
+.navbar-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  z-index: 1001;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.navbar-toggle.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.navbar-toggle.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 5rem 1rem 2rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.mobile-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-link {
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.mobile-link:hover {
+  background: rgba(99,102,241,0.08);
+  color: var(--primary-light);
+}
+
+.mobile-link.active {
+  background: rgba(99,102,241,0.12);
+  color: var(--primary-light);
+}
 
 /* ================================
    STATUS BADGE
@@ -525,6 +591,7 @@ h1, h2, h3, h4, h5 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   overflow: hidden;
 }
 
@@ -802,9 +869,9 @@ h1, h2, h3, h4, h5 {
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 
 @media (max-width: 768px) {
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .navbar-links { display: none; }
-  .claims-grid { grid-template-columns: 1fr; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; }
+  .claims-grid { grid-template-columns: 1fr !important; }
+  .grid-2 { gap: 1rem; }
 }
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -827,3 +894,105 @@ h1, h2, h3, h4, h5 {
 .alert-error { background: var(--error-bg); color: var(--error); border: 1px solid rgba(239,68,68,0.25); }
 .alert-warning { background: var(--warning-bg); color: var(--warning); border: 1px solid rgba(245,158,11,0.25); }
 .alert-info { background: var(--info-bg); color: var(--info); border: 1px solid rgba(59,130,246,0.25); }
+
+/* ================================
+   REVIEWER DASHBOARD RESPONSIVENESS
+ ================================ */
+.reviewer-claim-row {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.reviewer-claim-row:hover {
+  border-color: var(--border-hover);
+  transform: translateX(6px);
+  box-shadow: var(--shadow-glow);
+}
+
+.reviewer-claim-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 840px) {
+  .reviewer-claim-row {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+  .reviewer-claim-row:hover {
+    transform: none;
+  }
+  .reviewer-claim-actions {
+    justify-content: flex-start;
+    margin-top: 0.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    width: 100%;
+  }
+  
+  .form-input, .form-select {
+    max-width: 100% !important;
+  }
+}
+
+/* Compatibility fix for line-clamp */
+.claim-card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 2;
+}
+
+/* ================================
+   SUBMIT PAGE RESPONSIVENESS
+ ================================ */
+.submit-page-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .submit-page-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .submit-preview-area {
+    order: -1; /* Show score preview at the top on mobile */
+  }
+  
+  .submit-preview-area .glass-card {
+    position: static !important;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ================================
+   DETAIL PAGE RESPONSIVENESS
+ ================================ */
+.detail-page-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .detail-page-layout {
+    grid-template-columns: 1fr;
+  }
+}
