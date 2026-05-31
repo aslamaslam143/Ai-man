@@ -318,7 +318,7 @@ h1, h2, h3, h4, h5 {
 
 .form-select {
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6[...]
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 2.5rem;
@@ -365,6 +365,7 @@ h1, h2, h3, h4, h5 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  gap: 1.5rem;
 }
 
 .navbar-logo {
@@ -372,6 +373,7 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
+  flex-shrink: 0;
 }
 .navbar-logo-icon {
   width: 36px;
@@ -995,4 +997,47 @@ h1, h2, h3, h4, h5 {
   .detail-page-layout {
     grid-template-columns: 1fr;
   }
+}
+
+/* Navbar Links Alignment */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  flex: 1;
+}
+
+.navbar-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar-link:hover {
+  color: var(--primary-light);
+}
+
+.navbar-link.active {
+  color: var(--text-primary);
+}
+
+.navbar-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-primary);
+  border-radius: 999px;
+}
+
+/* Navbar Actions */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
 }
